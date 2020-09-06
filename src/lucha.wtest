@@ -1,0 +1,42 @@
+import rolando.*
+
+describe "Test de Lucha de Rolando" {
+	
+	fixture {
+		rolando.agregarArtefacto(espadaDelDestino)
+		rolando.agregarArtefacto(mascaraOscura)
+		rolando.agregarArtefacto(collarDivino)	
+	}
+	
+	test "Rolando sin artefactos: valor de lucha = 1" {
+		rolando.eliminarArtefacto(espadaDelDestino)
+		rolando.eliminarArtefacto(mascaraOscura)
+		rolando.eliminarArtefacto(collarDivino)
+		assert.equals(1, rolando.valorLucha())
+	}
+	
+	test "Valor Lucha con todos los artefactos bases" {
+		assert.equals(13, rolando.valorLucha())
+	}
+	
+	test "Valor Lucha con 3 perlas en collar" {
+		collarDivino.cantidadPerlas(3)
+		assert.equals(11, rolando.valorLucha())
+	}
+	
+	test "Valor Base de Lucha 8" {
+		rolando.valorBaseLucha(8)
+		assert.equals(20, rolando.valorLucha())
+	}
+	
+	test "Valor Lucha de Mascara con eclipse = 5" {
+		fuerzaOscura.eclipse()
+		assert.equals(5, mascaraOscura.unidadesLucha(null))
+	}
+	
+	test "Valor Lucha sin Mascara" {
+		rolando.eliminarArtefacto(mascaraOscura)
+		assert.equals(9, rolando.valorLucha())
+	}
+
+}

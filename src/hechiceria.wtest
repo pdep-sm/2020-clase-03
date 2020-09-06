@@ -1,0 +1,46 @@
+import rolando.*
+
+describe "Probamos hechicería de rolando" {
+	
+	fixture {
+		rolando.hechizoPreferido(espectroMalefico)
+	}
+	
+	test "Conocer el nivel de hechicería de Rolando" {
+		assert.equals(56, rolando.nivelHechiceria())
+	}
+	
+	test "Camibio de nombre: espectro superrecontramalefico muajajaja" {
+		espectroMalefico.nombre("espectro superrecontramalefico muajajaja")
+		assert.equals(125, rolando.nivelHechiceria())
+	}
+	
+	test "Rolando con hechizo básico" {
+		rolando.hechizoPreferido(hechizoBasico)
+		assert.equals(35, rolando.nivelHechiceria())
+	}
+	
+	test "Sucede eclipse, duplica fuerza oscura" {
+		fuerzaOscura.eclipse()
+		assert.equals(61, rolando.nivelHechiceria())
+	}
+	
+}
+
+describe "Pruebas de hechizos" {
+	
+	test "Hechizo Espectro Maléfico es poderoso" {
+		assert.that(espectroMalefico.esPoderoso())
+	}
+	
+	test "Hechizo Espectro Maléfico con nombre corto no es poderoso" {
+		espectroMalefico.nombre("pepe")
+		assert.notThat(espectroMalefico.esPoderoso())
+	}
+	
+	test "Hechizo Basico no es poderoso" {
+		assert.notThat(hechizoBasico.esPoderoso())
+	}
+	
+	
+}
