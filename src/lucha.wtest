@@ -38,5 +38,15 @@ describe "Test de Lucha de Rolando" {
 		rolando.eliminarArtefacto(mascaraOscura)
 		assert.equals(9, rolando.valorLucha())
 	}
+	
+	test "Valor Lucha solo con Espejo Fantastico es 1" {
+		rolando.eliminarArtefacto(espadaDelDestino)
+		rolando.eliminarArtefacto(mascaraOscura)
+		rolando.eliminarArtefacto(collarDivino)
+		
+		rolando.agregarArtefacto(espejoFantastico)
+		
+		assert.equals(1, rolando.valorLucha())
+	}
 
 }

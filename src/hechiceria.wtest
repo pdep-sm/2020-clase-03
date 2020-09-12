@@ -25,6 +25,17 @@ describe "Probamos hechicería de rolando" {
 		assert.equals(61, rolando.nivelHechiceria())
 	}
 	
+	test "Rolando tiene el Espectro Malefico como hechizo preferido" {
+		assert.equals(espectroMalefico, rolando.hechizoPreferido())
+	}
+	
+	test "Rolando con el libro de hechizos como preferido tiene 56 de nivel de hechiceria" {
+		rolando.hechizoPreferido(libroDeHechizos)
+		libroDeHechizos.agregarHechizo(espectroMalefico)
+		libroDeHechizos.agregarHechizo(hechizoBasico)
+		
+		assert.equals(56, rolando.nivelHechiceria())
+	}
 }
 
 describe "Pruebas de hechizos" {
