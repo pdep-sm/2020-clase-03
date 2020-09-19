@@ -1,8 +1,16 @@
-import rolando.*
+import personaje.*
+import hechizos.*
+import artefactos.*
 
 describe "Test de Lucha de Rolando" {
 	
+	const rolando = new Personaje()
+	const espadaDelDestino = new Arma()
+	const mascaraOscura = new Mascara()
+	const mascaraSuperClara = new Mascara()
+	
 	fixture {
+		mascaraSuperClara.indice(0)
 		rolando.agregarArtefacto(espadaDelDestino)
 		rolando.agregarArtefacto(mascaraOscura)
 		rolando.agregarArtefacto(collarDivino)	
@@ -43,10 +51,19 @@ describe "Test de Lucha de Rolando" {
 		rolando.eliminarArtefacto(espadaDelDestino)
 		rolando.eliminarArtefacto(mascaraOscura)
 		rolando.eliminarArtefacto(collarDivino)
-		
 		rolando.agregarArtefacto(espejoFantastico)
 		
 		assert.equals(1, rolando.valorLucha())
+	}
+	
+	
+	test "Mascara super clara con valor 4 de lucha" {
+		assert.equals(4, mascaraSuperClara.unidadesLucha(rolando))
+	}
+	
+	test "Mascara super clara con poder minimo 2 de lucha" {
+		mascaraSuperClara.poderMinimo(2)
+		assert.equals(2, mascaraSuperClara.unidadesLucha(rolando))
 	}
 
 }

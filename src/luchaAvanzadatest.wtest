@@ -1,0 +1,81 @@
+import personaje.*
+import hechizos.*
+import artefactos.*
+
+describe "Test de Lucha de Rolando" {
+	
+	const rolando = new Personaje()
+	const espadaDelDestino = new Arma()
+	const mascaraOscura = new Mascara()
+	//const mascaraSuperClara = new Mascara()
+	const armadura = new Armadura()
+	const espectroMalefico = new HechizoDeLogo()
+	
+	fixture {
+	//	mascaraSuperClara.indice(0)
+		espectroMalefico.nombre("Espectro Maléfico")
+		
+		rolando.agregarArtefacto(espadaDelDestino)
+		rolando.agregarArtefacto(mascaraOscura)
+		rolando.agregarArtefacto(collarDivino)	
+		rolando.agregarArtefacto(espejoFantastico)
+		rolando.agregarArtefacto(armadura)
+		rolando.hechizoPreferido(espectroMalefico)
+	}
+	
+	test "Rolando esta cargado" {
+		assert.that(rolando.estaCargado())
+	}
+	
+	test "Rolando no esta cargado sin armadura" {
+		rolando.eliminarArtefacto(armadura)
+		assert.notThat(rolando.estaCargado())
+	}
+	
+	test "Rolando tiene valor de lucha de 20" {
+		assert.equals(20, rolando.valorLucha())
+	}
+	
+	test "Habilidad de lucha de armadura con bendición" {
+		armadura.refuerzo(bendicion)
+		assert.equals(58, armadura.unidadesLucha(rolando))
+	}
+	
+	test "Habilidad de lucha de armadura con cota de malla" {
+		armadura.refuerzo(new CotaDeMalla())
+		assert.equals(3, armadura.unidadesLucha(rolando))
+	}
+	
+	test "Habilidad de lucha de armadura con hechizo basico" {
+		const refuerzoHechizo = new RefuerzoHechizo()
+		refuerzoHechizo.hechizo(hechizoBasico)
+		armadura.refuerzo(refuerzoHechizo)
+		assert.equals(12, armadura.unidadesLucha(rolando))
+	}
+	
+	test "Habilidad de lucha de armadura con espectro malefico" {
+		const refuerzoHechizo = new RefuerzoHechizo()
+		refuerzoHechizo.hechizo(espectroMalefico)
+		armadura.refuerzo(refuerzoHechizo)
+		assert.equals(19, armadura.unidadesLucha(rolando))
+	}
+	
+	test "Habilidad de lucha de Rolando, solo con espejo" {
+		rolando.eliminarArtefacto(armadura)
+		rolando.eliminarArtefacto(espadaDelDestino)
+		rolando.eliminarArtefacto(collarDivino)
+		rolando.eliminarArtefacto(mascaraOscura)
+
+		assert.equals(1, rolando.valorLucha())
+	}
+	
+	test "Hechiceria de Rolando con libro, es 56" {
+		const libroDeHechizos = new LibroDeHechizos()
+		libroDeHechizos.agregarHechizo(espectroMalefico)
+		libroDeHechizos.agregarHechizo(hechizoBasico)
+		rolando.hechizoPreferido(libroDeHechizos)
+		
+		assert.equals(56, rolando.nivelHechiceria())
+	}
+	
+}

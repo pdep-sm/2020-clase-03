@@ -1,8 +1,14 @@
-import rolando.*
+import personaje.*
+import hechizos.*
 
 describe "Probamos hechicería de rolando" {
 	
+	const rolando = new Personaje()
+	const espectroMalefico = new HechizoDeLogo()
+	const libroDeHechizos = new LibroDeHechizos()
+	
 	fixture {
+		espectroMalefico.nombre("Espectro Maléfico")
 		rolando.hechizoPreferido(espectroMalefico)
 	}
 	
@@ -39,6 +45,12 @@ describe "Probamos hechicería de rolando" {
 }
 
 describe "Pruebas de hechizos" {
+	
+	const espectroMalefico = new HechizoDeLogo()
+	
+	fixture {
+		espectroMalefico.nombre("Espectro Malefico")
+	}
 	
 	test "Hechizo Espectro Maléfico es poderoso" {
 		assert.that(espectroMalefico.esPoderoso())
