@@ -7,14 +7,10 @@ describe "Test de Lucha de Rolando" {
 	const rolando = new Personaje()
 	const espadaDelDestino = new Arma()
 	const mascaraOscura = new Mascara()
-	//const mascaraSuperClara = new Mascara()
 	const armadura = new Armadura()
-	const espectroMalefico = new HechizoDeLogo()
+	const espectroMalefico = new HechizoDeLogo(nombre="Espectro Maléfico")
 	
 	fixture {
-	//	mascaraSuperClara.indice(0)
-		espectroMalefico.nombre("Espectro Maléfico")
-		
 		rolando.agregarArtefacto(espadaDelDestino)
 		rolando.agregarArtefacto(mascaraOscura)
 		rolando.agregarArtefacto(collarDivino)	
@@ -47,15 +43,13 @@ describe "Test de Lucha de Rolando" {
 	}
 	
 	test "Habilidad de lucha de armadura con hechizo basico" {
-		const refuerzoHechizo = new RefuerzoHechizo()
-		refuerzoHechizo.hechizo(hechizoBasico)
+		const refuerzoHechizo = new RefuerzoHechizo(hechizo = hechizoBasico)
 		armadura.refuerzo(refuerzoHechizo)
 		assert.equals(12, armadura.unidadesLucha(rolando))
 	}
 	
 	test "Habilidad de lucha de armadura con espectro malefico" {
-		const refuerzoHechizo = new RefuerzoHechizo()
-		refuerzoHechizo.hechizo(espectroMalefico)
+		const refuerzoHechizo = new RefuerzoHechizo(hechizo=espectroMalefico)
 		armadura.refuerzo(refuerzoHechizo)
 		assert.equals(19, armadura.unidadesLucha(rolando))
 	}
@@ -76,6 +70,14 @@ describe "Test de Lucha de Rolando" {
 		rolando.hechizoPreferido(libroDeHechizos)
 		
 		assert.equals(56, rolando.nivelHechiceria())
+	}
+	
+	test "Armadura extra de base 5 con cota de malla de 6" {
+		const nuevaCota = new CotaDeMalla(unidades=6)
+		const nuevaArmadura = new Armadura(unidadesBase=5, refuerzo=nuevaCota)
+		rolando.agregarArtefacto(nuevaArmadura)
+		
+		assert.equals(37, rolando.valorLucha())	
 	}
 	
 }

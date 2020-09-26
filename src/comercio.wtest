@@ -1,0 +1,90 @@
+import personaje.*
+import hechizos.*
+import artefactos.*
+
+describe "Probamos hechicería de rolando" {
+	
+	const alacachula = new HechizoDeLogo(nombre="alacachula cachicomula")
+	const espectroMalefico = new HechizoDeLogo(nombre="Espectro Maléfico")
+	const mascaraOscura = new Mascara()
+	const mascaraMediaOscura = new Mascara(indice=0.5)
+	const rolando = new Personaje(hechizoPreferido=espectroMalefico)
+	const xenia = new Personaje(hechizoPreferido=alacachula)
+	const thor = new Personaje(hechizoPreferido=hechizoBasico)
+	const loki = new Personaje(hechizoPreferido=hechizoBasico)
+	
+
+	
+	test "Rolando tiene +10 de oro al cumplir objetivo" {
+		const oroInicialConObjetivo = rolando.oro() + 10
+		rolando.cumplirObjetivo()
+		assert.equals(oroInicialConObjetivo, rolando.oro())
+	}
+	
+	test "El precioo de lista de alacachula es 22" {
+		assert.equals(22, alacachula.costo())
+	}
+	
+	test "Xenia canje hechizo por basico sin alterar oro" {
+		const oroInicial = xenia.oro()
+		xenia.canjearHechizo(hechizoBasico)
+		assert.equals(oroInicial, xenia.oro())
+	}
+	
+	test "Thor canjea hechizo por alacachula, tiene 83 oro" {
+		thor.canjearHechizo(alacachula)
+		assert.equals(83, thor.oro())
+	}
+	
+	test "Thor canjea 2 veces el hechizo basico, tiene 90 oro" {
+		thor.canjearHechizo(hechizoBasico)
+		thor.canjearHechizo(hechizoBasico)
+		assert.equals(90, thor.oro())
+	}
+	
+	test "Xenia se compra de todo y su oro queda en 70" {
+		const espada = new Arma()
+		const armaduraBasica = new Armadura()
+		const armaduraConCota = new Armadura(refuerzo=new CotaDeMalla(unidades=5))
+		
+		xenia.comprar(espada)
+		xenia.comprar(collarDivino)
+		xenia.comprar(armaduraBasica)
+		xenia.comprar(armaduraConCota)
+		
+		assert.equals(70, xenia.oro())
+		assert.equals(4, xenia.cantidadArtefactos())
+	}
+	
+	test "Thor se compra de todo, y su oro queda en 74" {
+		const armaduraConBendicion = new Armadura(refuerzo=bendicion)
+		const refuerzoHechizo = new RefuerzoHechizo(hechizo=alacachula)
+		const armaduraConHechizo = new Armadura(refuerzo=refuerzoHechizo)
+		
+		thor.comprar(armaduraConBendicion)
+		thor.comprar(armaduraConHechizo)
+		
+		assert.equals(74, thor.oro())		
+	}
+	
+	
+	test "Xenia caneja por libro de hechizos, y queda en 69 de oro" {
+		const nuevoLibro = new LibroDeHechizos(hechizos=[alacachula, hechizoBasico])
+		xenia.canjearHechizo(nuevoLibro)
+		assert.equals(69, xenia.oro())
+	}
+	
+	test "Thor se compra una mascara y queda con 25 de oro" {
+		thor.comprar(mascaraOscura)
+		assert.equals(25, thor.oro())
+	}
+	
+	test "Xenia se compra una mascara y queda con 25 de oro" {
+		fuerzaOscura.eclipse()
+		xenia.comprar(mascaraMediaOscura)
+		assert.equals(25, xenia.oro())
+	}
+	
+	
+	
+}

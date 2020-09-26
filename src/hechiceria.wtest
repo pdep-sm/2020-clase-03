@@ -3,21 +3,18 @@ import hechizos.*
 
 describe "Probamos hechicería de rolando" {
 	
-	const rolando = new Personaje()
-	const espectroMalefico = new HechizoDeLogo()
+	const espectroMalefico = new HechizoDeLogo(nombre="Espectro Maléfico")
 	const libroDeHechizos = new LibroDeHechizos()
+	const rolando = new Personaje(hechizoPreferido=espectroMalefico)
 	
-	fixture {
-		espectroMalefico.nombre("Espectro Maléfico")
-		rolando.hechizoPreferido(espectroMalefico)
-	}
 	
 	test "Conocer el nivel de hechicería de Rolando" {
 		assert.equals(56, rolando.nivelHechiceria())
 	}
 	
 	test "Camibio de nombre: espectro superrecontramalefico muajajaja" {
-		espectroMalefico.nombre("espectro superrecontramalefico muajajaja")
+		const nuevoEspectro =  new HechizoDeLogo(nombre="espectro superrecontramalefico muajajaja")
+		rolando.hechizoPreferido(nuevoEspectro)
 		assert.equals(125, rolando.nivelHechiceria())
 	}
 	
@@ -46,19 +43,16 @@ describe "Probamos hechicería de rolando" {
 
 describe "Pruebas de hechizos" {
 	
-	const espectroMalefico = new HechizoDeLogo()
-	
-	fixture {
-		espectroMalefico.nombre("Espectro Malefico")
-	}
+	const espectroMalefico = new HechizoDeLogo(nombre="Espectro Malefico")
+
 	
 	test "Hechizo Espectro Maléfico es poderoso" {
 		assert.that(espectroMalefico.esPoderoso())
 	}
 	
 	test "Hechizo Espectro Maléfico con nombre corto no es poderoso" {
-		espectroMalefico.nombre("pepe")
-		assert.notThat(espectroMalefico.esPoderoso())
+		const nuevoEspectro =  new HechizoDeLogo(nombre="pepe")
+		assert.notThat(nuevoEspectro.esPoderoso())
 	}
 	
 	test "Hechizo Basico no es poderoso" {
